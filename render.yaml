@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: payflow
+    runtime: node
+    plan: starter            # persistent disks need a paid plan; see README for the free option
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /var/data/payments.db
+    disk:
+      name: payflow-data
+      mountPath: /var/data
+      sizeGB: 1
